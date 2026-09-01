@@ -8,6 +8,7 @@
             Padding="30,0"
             Spacing="25">
             <Image
+                x:Name="dotnetBot"
                 Source="dotnet_bot.png"
                 HeightRequest="185"
                 Aspect="AspectFit"
@@ -24,12 +25,25 @@
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+            
+            <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+                <Button
+                    x:Name="CounterBtn"
+                    Text="Click me" 
+                    SemanticProperties.Hint="Counts the number of times you click"
+                    Clicked="OnCounterClicked"
+                    HorizontalOptions="Fill" />
+                <Button
+                    x:Name="ResetBtn"
+                    Text="Tagasi nulli"
+                    BackgroundColor="Red"
+                    Clicked="ResetBtn_Clicked" />
+                <Button
+                    x:Name="Paremale_Vasakule"
+                    Text="Paremale/Vasakule"
+                    BackgroundColor="Coral"
+                    Clicked="Paremale_Vasakule_Clicked" />
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 
