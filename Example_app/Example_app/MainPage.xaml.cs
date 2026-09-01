@@ -42,10 +42,11 @@
             CounterBtn.Text = $"Clicked {count} times";
             ResetBtn.Text = $"Reset oli tehtud";
             dotnetBot.Rotation = 0;
-            dotnetBot.IsVisible = true; // Teeme dotnetBot pildi nähtavaks, kui count on null
-            ResetBtn.ClearValue(Button.BackgroundColorProperty); // Eemaldame nupu taustavärvi, et see naaseks algsesse olekusse
             dotnetBot.Opacity = 1;
             dotnetBot.Scale = 1;
+
+            dotnetBot.IsVisible = true; // Teeme dotnetBot pildi nähtavaks, kui count on null
+            ResetBtn.ClearValue(Button.BackgroundColorProperty); // Eemaldame nupu taustavärvi, et see naaseks algsesse olekusse
         }
 
         private void Paremale_Vasakule_Clicked(object sender, EventArgs e)
