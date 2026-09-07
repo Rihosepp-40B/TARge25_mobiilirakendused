@@ -6,6 +6,19 @@
     xmlns:local="clr-namespace:Example_app"
     Title="Example_app">
 
+    <Shell.TitleView>
+        <Label
+            Text="Näidis"
+            FontFamily="luffio Regular 400"
+            FontSize="Title"
+            TextColor="DarkGoldenrod"
+            VerticalTextAlignment="Center"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            Padding="25,0,0,0"
+            HeightRequest="50"
+            />
+    </Shell.TitleView>
     <ShellContent
         Title="Avaleht"
         ContentTemplate="{DataTemplate local:StartPage}"

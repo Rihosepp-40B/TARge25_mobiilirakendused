@@ -13,7 +13,7 @@ public partial class StartPage : ContentPage
 			Button nupp = new Button
 			{
 				Text = Lehenimed[i],
-				FontSize = 20,
+				FontSize = 36,
 				FontFamily = "Luffio",
 				BackgroundColor = Colors.LightGray,
 				TextColor = Colors.Black,

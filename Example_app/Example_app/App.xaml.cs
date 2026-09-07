@@ -20,7 +20,7 @@ namespace Example_app
                 BarBackgroundColor = Colors.LightBlue,
                 BarTextColor = Colors.White
             };
-            return new Window(new AppShell());
+            return new Window(navPage);
         }
     }
 }
