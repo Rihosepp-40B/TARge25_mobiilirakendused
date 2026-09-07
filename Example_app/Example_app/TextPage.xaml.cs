@@ -30,6 +30,18 @@ public partial class TextPage : ContentPage
 		{
 			lbl.Text = editor.Text;
 		};
+
+		Button speechButton = new Button
+		{
+			Text = "Loe Ette",
+			FontSize = 22,
+			BackgroundColor = Colors.LightGray,
+			TextColor = Colors.BlueViolet,
+			CornerRadius = 10
+		};
+
+		speechButton.Clicked += Btn_Clicked;
+
 		hsl = new HorizontalStackLayout { Spacing = 20, HorizontalOptions = LayoutOptions.Center };
 		for (int j = 0; j < nupud.Count; j++)
 		{
@@ -51,7 +63,7 @@ public partial class TextPage : ContentPage
 		{
 			Padding = 20,
 			Spacing = 15,
-			Children = { lbl, editor, hsl },
+			Children = { lbl, editor, speechButton, hsl },
 			HorizontalOptions = LayoutOptions.Center
 		};
 		Content = vsl;
@@ -72,4 +84,30 @@ public partial class TextPage : ContentPage
 			Navigation.PushAsync(new FigurePage());
 		}
 	}
+    private async void Btn_Clicked(object? sender, EventArgs e)
+    {
+        IEnumerable<Locale> locales = await TextToSpeech.Default.GetLocalesAsync();
+
+        SpeechOptions options = new SpeechOptions()
+        {
+            Pitch = 1.5f, // 0.0 - 2.0
+            Volume = 0.75f, // 0.0 - 1.0
+            Locale = locales.FirstOrDefault()
+        };
+        string? text = editor.Text;
+		if (string.IsNullOrWhiteSpace(text))
+		{
+			await DisplayAlert("Viga", "Palun sisesta tekst", "Ok");
+			return;
+		}
+		try
+		{
+			await TextToSpeech.SpeakAsync(text, options);
+		}
+		catch (Exception ex)
+		{
+			await DisplayAlert("TTS viga", ex.Message, "OK");
+		}
+
+    }
 }
