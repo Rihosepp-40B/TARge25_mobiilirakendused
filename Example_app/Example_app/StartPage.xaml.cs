@@ -14,7 +14,7 @@ public partial class StartPage : ContentPage
 			{
 				Text = Lehenimed[i],
 				FontSize = 36,
-				FontFamily = "Luffio",
+				FontFamily = "luffio",
 				BackgroundColor = Colors.LightGray,
 				TextColor = Colors.Black,
 				CornerRadius = 10,
