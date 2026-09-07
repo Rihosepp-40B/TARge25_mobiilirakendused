@@ -35,7 +35,8 @@ public partial class TextPage : ContentPage
 		{
 			Text = "Loe Ette",
 			FontSize = 22,
-			BackgroundColor = Colors.LightGray,
+            FontFamily = "luffio",
+            BackgroundColor = Colors.LightGray,
 			TextColor = Colors.BlueViolet,
 			CornerRadius = 10
 		};
