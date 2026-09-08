@@ -2,12 +2,12 @@ namespace Example_app;
 
 public partial class StartPage : ContentPage
 {
-	VerticalStackLayout vst;
-	public List<ContentPage> lehed = new List<ContentPage>() { new TextPage(), new FigurePage() };
-	public List<string> Lehenimed = new List<string>() { "Testid", "Kujundus" };
+	VerticalStackLayout vsl;
+	public List<ContentPage> lehed = new List<ContentPage>() { new TextPage(), new FigurePage(), new Timer_Page() };
+	public List<string> Lehenimed = new List<string>() { "Testid", "Kujundus", "Taimer" };
 	public StartPage()
 	{
-		vst = new VerticalStackLayout { Padding = 20, Spacing = 20 };
+		vsl = new VerticalStackLayout { Padding = 20, Spacing = 20 };
 		for (int i=0;i<lehed.Count; i++)
 		{
 			Button nupp = new Button
@@ -21,13 +21,13 @@ public partial class StartPage : ContentPage
 				HeightRequest = 60,
 				ZIndex = i
 			};
-			vst.Add(nupp);
+			vsl.Add(nupp);
 			nupp.Clicked += (sender, e) =>
 			{
 				var valik = lehed[nupp.ZIndex];
 				Navigation.PushAsync(valik);
 			};
 		}
-		Content = vst;
+		Content = vsl;
 	}
 }

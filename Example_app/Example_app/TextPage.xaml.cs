@@ -74,13 +74,9 @@ public partial class TextPage : ContentPage
 		Button nupp = sender as Button;
 		if(nupp.ZIndex == 0)
 		{
-			Navigation.PopAsync();
-		}
-		else if (nupp.ZIndex == 1)
-		{
 			Navigation.PopToRootAsync();
 		}
-		else if (nupp.ZIndex == 2)
+		else if (nupp.ZIndex == 1)
 		{
 			Navigation.PushAsync(new FigurePage());
 		}

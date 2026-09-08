@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls.Shapes;
+using System.Runtime.Intrinsics.X86;
 
 namespace Example_app;
 
@@ -127,7 +128,7 @@ public partial class FigurePage : ContentPage
 		}
 		else if (nupp.ZIndex == 2)
 		{
-			Navigation.PushAsync(new FigurePage()); //Siia lisame uue lehe, et saaks edasi liikuda
+			Navigation.PushAsync(new Timer_Page()); //Siia lisame uue lehe, et saaks edasi liikuda
 		}
-	}
+    }
 }
