@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Example_app.ValgusFoorPage"
+             Title="Valgusfoor">
+    <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center" VerticalOptions="Center">
+
+        <!--Pealkiri-->
+        <Label x:Name="InfoLabel" 
+            Text="Vali valgus" 
+            FontSize="22" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Center" 
+            HorizontalTextAlignment="Center" />
+
+        <Border BackgroundColor="Black"
+                StrokeShape="RoundRectangle 15"
+                Padding="15"
+                HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="15">
+
+                <!-- Punane tuli -->
+                <Grid WidthRequest="150" HeightRequest="150" HorizontalOptions="Center">
+                    <BoxView x:Name="PunaneBox"
+                         WidthRequest="150"
+                         HeightRequest="150"
+                         CornerRadius="75"
+                         Color="Gray"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center" />
+                    <Label x:Name="PunaneLabel"
+                       Text=""
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTuliTapped" CommandParameter="Punane" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+                <!-- Kollane tuli -->
+                <Grid WidthRequest="150" HeightRequest="150" HorizontalOptions="Center">
+                    <BoxView x:Name="KollaneBox"
+                         WidthRequest="150"
+                         HeightRequest="150"
+                         CornerRadius="75"
+                         Color="Gray"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center" />
+                    <Label x:Name="KollaneLabel"
+                       Text=""
+                       TextColor="Black"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTuliTapped" CommandParameter="Kollane" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+                <!-- Roheline tuli -->
+                <Grid WidthRequest="150" HeightRequest="150" HorizontalOptions="Center">
+                    <BoxView x:Name="RohelineBox"
+                         WidthRequest="150"
+                         HeightRequest="150"
+                         CornerRadius="75"
+                         Color="Gray"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center" />
+                    <Label x:Name="RohelineLabel"
+                       Text=""
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTuliTapped" CommandParameter="Roheline" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Nupud -->
+        <HorizontalStackLayout Spacing="15" HorizontalOptions="Center" Margin="0,10,0,0">
+            <Button Text="Sisse" Clicked="OnSisseClicked" WidthRequest="100" BackgroundColor="Green" TextColor="White" />
+            <Button Text="Välja" Clicked="OnValjaClicked" WidthRequest="100" BackgroundColor="Red" TextColor="White" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
