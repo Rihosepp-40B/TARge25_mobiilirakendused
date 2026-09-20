@@ -35,7 +35,7 @@ public partial class DateTimePage : ContentPage
 		};
 		datetimeLabel = new Label
 		{
-			Text = "Vali kuupäev või aeg", //$"Valitud kuupäev: {datePicker.Date:D}\nValitud kellaaeg: {timePicker.Tie: T}",
+			Text = "Vali kuupäev või aeg", //$"Valitud kuupäev: {datePicker.Date:D}\nValitud kellaaeg: {timePicker.Time: T}",
 			FontSize = 24,
 			HorizontalOptions = LayoutOptions.Center,
 			VerticalOptions = LayoutOptions.Center
