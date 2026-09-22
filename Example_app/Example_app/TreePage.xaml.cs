@@ -11,7 +11,7 @@ public partial class TreePage : ContentPage
     
     // Oksa varjud ööks
     Ellipse branchNightL1, branchNightD1, branchNightL2, branchNightD2, branchNightL3, branchNightD3;
-    AbsoluteLayout al, treeLayout;
+    AbsoluteLayout al, treeLayout, flowerLayout;
 	Picker pickAction;
 	Button startAction;
 	Label statusLabel, stepLabel;
@@ -395,6 +395,7 @@ public partial class TreePage : ContentPage
             Fill = new SolidColorBrush(Colors.Black),
             BackgroundColor = Colors.Transparent
         };
+        flowerLayout = new AbsoluteLayout();
         
         treeLayout.Children.Clear();
 
@@ -424,6 +425,16 @@ public partial class TreePage : ContentPage
 
         branchNightL3.Opacity = slideOpacity.Value;
         branchNightD3.Opacity = slideOpacity.Value;
+
+        AbsoluteLayout.SetLayoutBounds(
+            flowerLayout,
+            new Rect(0, 0, 1, 1)
+        );
+
+        AbsoluteLayout.SetLayoutFlags(
+            flowerLayout,
+            AbsoluteLayoutFlags.All
+        );
 
         // Kogu puu konteineri asukoht ja mõõtmed
         AbsoluteLayout.SetLayoutBounds(
@@ -456,6 +467,8 @@ public partial class TreePage : ContentPage
 
         treeLayout.Children.Add(branchDark3);       
         treeLayout.Children.Add(branchNightD3);
+        
+        treeLayout.Children.Add(flowerLayout);
 
 
         // Tüve asukoht konteineris
@@ -1048,8 +1061,8 @@ public partial class TreePage : ContentPage
             AbsoluteLayoutFlags.PositionProportional
         );
 
-        treeLayout.Children.Add(flower1);
-        treeLayout.Children.Add(flower2);
+        flowerLayout.Children.Add(flower1);
+        flowerLayout.Children.Add(flower2);
 
         uint scaleSpeed = (uint)(1000 / stepSpeed.Value);
 
