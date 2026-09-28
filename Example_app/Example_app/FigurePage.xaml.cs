@@ -1,5 +1,4 @@
 using Microsoft.Maui.Controls.Shapes;
-using System.Runtime.Intrinsics.X86;
 
 namespace Example_app;
 

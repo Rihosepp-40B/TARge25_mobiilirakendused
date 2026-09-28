@@ -2,4 +2,7 @@
   <Project Path="Example_app/Example_app.csproj">
     <Deploy />
   </Project>
+  <Project Path="TicTacToe/TicTacToe.csproj" Id="e3a60ac9-c17a-4097-a521-a6dc16398b86">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>

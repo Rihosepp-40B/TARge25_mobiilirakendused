@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Example_app
+namespace TicTacToe
 {
     public static class MauiProgram
     {
@@ -13,7 +13,6 @@ namespace Example_app
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                    fonts.AddFont("luffio.ttf", "luffio");
                 });
 
 #if DEBUG
