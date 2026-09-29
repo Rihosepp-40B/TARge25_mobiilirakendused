@@ -33,12 +33,20 @@ namespace TicTacToe.Game
 
             player1Name = new Entry
             {
-                Placeholder = "Mängija 1"
+                Placeholder = "Mängija 1",
+                TextColor = Colors.Gold,
+                PlaceholderColor = Colors.Blue,
+                FontSize = 20,
+                BackgroundColor = Colors.Black
             };
 
             player2Name = new Entry
             {
-                Placeholder = "Mängija 2"
+                Placeholder = "Mängija 2",
+                TextColor = Colors.Gold,
+                PlaceholderColor = Colors.Blue,
+                FontSize = 20,
+                BackgroundColor = Colors.Black
             };
 
             // Mängija 1 piltide valik
@@ -75,7 +83,9 @@ namespace TicTacToe.Game
             gameModePicker = new Picker
             {
                 Title = "Mängurežiim",
-                TextColor = Colors.Red
+                TextColor = Colors.Red,
+                FontSize = 24,
+                BackgroundColor = Colors.Black,
             };
 
             gameModePicker.Items.Add("Mängija vs mängija");

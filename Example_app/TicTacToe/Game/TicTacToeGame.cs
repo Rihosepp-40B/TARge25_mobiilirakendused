@@ -125,6 +125,8 @@ namespace TicTacToe.Game
 
         private async Task ShowPlayerSetup()
         {
+            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
+
             PlayerSetupPage setupPage = new PlayerSetupPage(
                 (p1, p2, isBotGame) =>
                 {
@@ -137,9 +139,14 @@ namespace TicTacToe.Game
                     player2Image.Source = player2.Image;
 
                     Player1LabelInfo();
+
+                    // Anname märku, et valik on tehtud
+                    tcs.SetResult(true);
                 });
 
             await Navigation.PushModalAsync(setupPage);
+
+            await tcs.Task;
         }
 
         private Grid GameField()
