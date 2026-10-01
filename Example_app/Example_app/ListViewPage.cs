@@ -1,142 +1,215 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Collections.ObjectModel;
+// Kui kasutad vanemat Xamarin.Forms'i, kasuta seda nimeruumi:
+// using Xamarin.Forms;
 
 namespace Example_app
 {
+    // 1. ANDMEMUDEL
     public class Telefon
     {
         public string Nimetus { get; set; }
         public string Tootja { get; set; }
-        public int Hind {  get; set; }
-        public string Pilt { get; set; }
+        public int Hind { get; set; }
+        public string Pilt { get; set; } // Hoiab pildi nime või seadme failiteed
     }
+
+    // 2. PÕHILEHT
     public class ListViewPage : ContentPage
     {
+        // Globaalsed muutujad
+        ObservableCollection<Telefon> telefons;
         ListView list;
-        ObservableCollection<Telefon> telefonid;
-        Entry entryNimetus, entryTootja, entryHind, entryPilt;
+        Entry entryNimetus, entryTootja, entryHind;
+
+        // Muutujad pildi valimise jaoks
+        string valitudPildiTee = "";
+        Label lblValitudPilt;
 
         public ListViewPage()
         {
-            // Konstruktoris andmete algväärtustamine
-            telefonid = new ObservableCollection<Telefon>
-                {
-            new Telefon { Nimetus="Samsung Galaxy S22 Ultra", Tootja="Samsung", Hind=1349, Pilt="Galaxy.png" },
-            new Telefon { Nimetus="Xiaomi Mi 11 Lite 5G NE", Tootja="Xiaomi", Hind=399, Pilt="Xiaomi5GNE.png" },
-            new Telefon { Nimetus="iPhone 13 mini", Tootja="Apple", Hind=1179, Pilt="iPhone13.png" }
+            this.Title = "Telefonide haldus";
+
+            // Algandmete laadimine
+            telefons = new ObservableCollection<Telefon>
+            {
+                new Telefon { Nimetus="Samsung Galaxy S22 Ultra", Tootja="Samsung", Hind=1349, Pilt="Galaxy.png" },
+                new Telefon { Nimetus="Xiaomi Mi 11 Lite 5G NE", Tootja="Xiaomi", Hind=399, Pilt="default_phone.png" },
+                new Telefon { Nimetus="iPhone 13 mini", Tootja="Apple", Hind=1179, Pilt="iPhone13.png" }
             };
 
+            // 1. SISESTUSVÄLJAD
+            entryNimetus = new Entry { Placeholder = "Telefoni mudel (nt iPhone 14)" };
+            entryTootja = new Entry { Placeholder = "Tootja (nt Apple)" };
+            entryHind = new Entry { Placeholder = "Hind (täisarv)", Keyboard = Keyboard.Numeric };
+
+            // 2. PILDI VALIMISE KONTROLLID
+            Button btnValiPilt = new Button { Text = "📷 Vali pilt galeriist", BackgroundColor = Colors.LightBlue };
+            btnValiPilt.Clicked += BtnValiPilt_Clicked;
+
+            lblValitudPilt = new Label { Text = "Pilti pole valitud (kasutatakse vaikimisi pilti)", FontSize = 12, TextColor = Colors.Gray };
+
+            // 3. LISAMISE JA KUSTUTAMISE NUPUD
+            Button btnLisa = new Button { Text = "Lisa telefon", BackgroundColor = Colors.LightGreen };
+            btnLisa.Clicked += Lisa_Clicked;
+
+            Button btnKustuta = new Button { Text = "Kustuta valitud telefon", BackgroundColor = Colors.LightPink };
+            btnKustuta.Clicked += Kustuta_Clicked;
+
+            // 4. LISTVIEW JA SELLE KUJUNDUS
             list = new ListView
             {
-                HasUnevenRows = true, // Lubab ridadel olla erineva kõrgusega
-                ItemsSource = telefonid,
-                ItemTemplate = new DataTemplate(() =>
-                {
-                    Label nimetus = new Label { FontSize = 20 };
-                    nimetus.SetBinding(Label.TextProperty, "Nimetus"); // Seome klassi omadusega "Nimetus"
-
-                    Label hind = new Label();
-                    hind.SetBinding(Label.TextProperty, "Hind");
-
-                    return new ViewCell
-                    {
-                        View = new StackLayout
-                        {
-                            Padding = new Thickness(0, 5),
-                            Orientation = StackOrientation.Vertical,
-                            Children = { nimetus, hind }
-                        }
-                    };
-                })
+                HasUnevenRows = true,
+                ItemsSource = telefons,
+                SelectionMode = ListViewSelectionMode.Single
             };
-            // Seome sündmuse ListView-ga
+
             list.ItemTapped += List_ItemTapped;
 
-            Button btnKustuta = new Button
+            list.ItemTemplate = new DataTemplate(() =>
             {
-                Text = "Kustuta",
-                BackgroundColor = Colors.Red,
-                TextColor = Colors.White
-            };
-            btnKustuta.Clicked += BtnKustuta_Clicked;
+                // Pildi element
+                Image imgPilt = new Image
+                {
+                    HeightRequest = 50,
+                    WidthRequest = 50,
+                    Aspect = Aspect.AspectFit,
+                    VerticalOptions = LayoutOptions.Center,
+                    Margin = new Thickness(0, 0, 10, 0) // Veeris paremal
+                };
+                imgPilt.SetBinding(Image.SourceProperty, "Pilt");
 
-            entryNimetus = new Entry { Placeholder = "Nimetus" };
-            entryTootja = new Entry { Placeholder = "Tootja" };
-            entryHind = new Entry { Placeholder = "Hind" };
-            //entryPilt = new Entry { Placeholder = "Pilt" };
+                // Tekstide elemendid
+                Label lblNimetus = new Label { FontSize = 18, FontAttributes = FontAttributes.Bold };
+                lblNimetus.SetBinding(Label.TextProperty, "Nimetus");
 
-            Button btnLisa = new Button
+                Label lblTootja = new Label { TextColor = Colors.Gray };
+                lblTootja.SetBinding(Label.TextProperty, "Tootja");
+
+                Label lblHind = new Label { TextColor = Colors.DarkBlue, FontAttributes = FontAttributes.Bold };
+                lblHind.SetBinding(Label.TextProperty, new Binding("Hind", stringFormat: "{0} €"));
+
+                var textLayout = new StackLayout
+                {
+                    Orientation = StackOrientation.Vertical,
+                    VerticalOptions = LayoutOptions.Center,
+                    Children = { lblNimetus, lblTootja, lblHind }
+                };
+
+                // Kogu rea paigutus (Pilt vasakul, tekst paremal)
+                var rowLayout = new StackLayout
+                {
+                    Orientation = StackOrientation.Horizontal,
+                    Padding = new Thickness(10),
+                    Children = { imgPilt, textLayout }
+                };
+
+                return new ViewCell { View = rowLayout };
+            });
+
+            // 5. PANEME KÕIK LEHELE KOKKU
+            this.Content = new StackLayout
             {
-                Text = "Lisa telefon",
-                BackgroundColor = Colors.Green,
-                TextColor = Colors.White
-            };
-
-            btnLisa.Clicked += BtnLisa_Clicked;
-
-            Content = new StackLayout
-            {
+                Padding = new Thickness(10),
                 Children =
                 {
                     entryNimetus,
                     entryTootja,
-                    list,
+                    entryHind,
+                    btnValiPilt,   // Uus nupp galerii jaoks
+                    lblValitudPilt, // Tagasiside silt
+                    btnLisa,
                     btnKustuta,
-                    btnLisa
+                    list
                 }
             };
         }
 
-        private void BtnLisa_Clicked(object? sender, EventArgs e)
+        // --- SÜNDMUSTE TÖÖTLEJAD (Event Handlers) ---
+
+        // Pildi valimine galeriist
+        private async void BtnValiPilt_Clicked(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(entryNimetus.Text))
+            try
+            {
+                var photo = await MediaPicker.Default.PickPhotoAsync();
+
+                if (photo != null)
+                {
+                    valitudPildiTee = photo.FullPath; // Jätame asukoha meelde
+                    lblValitudPilt.Text = $"Valitud: {photo.FileName}";
+                    lblValitudPilt.TextColor = Colors.Green;
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Viga", "Pildi valimine ebaõnnestus: " + ex.Message, "OK");
+            }
+        }
+
+        // Uue telefoni lisamine
+        private void Lisa_Clicked(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(entryNimetus.Text) && !string.IsNullOrWhiteSpace(entryTootja.Text))
             {
                 int hind = 0;
-                int.TryParse(entryHind.Text, out hind); // Muudame sisestatud teksti numbriks
+                int.TryParse(entryHind.Text, out hind);
 
-                // Lisame uue objekti
-                telefonid.Add(new Telefon
+                // Kui pilti ei valitud, kasutame vaikimisi faili
+                string pildiNimi = string.IsNullOrWhiteSpace(valitudPildiTee) ? "default_phone.png" : valitudPildiTee;
+
+                telefons.Add(new Telefon
                 {
                     Nimetus = entryNimetus.Text,
                     Tootja = entryTootja.Text,
-                    Hind = hind
+                    Hind = hind,
+                    Pilt = pildiNimi
                 });
 
-                // Puhastame tekstikastid uue sisestuse jaoks
+                // Puhastame väljad uue sisestuse jaoks
                 entryNimetus.Text = "";
                 entryTootja.Text = "";
                 entryHind.Text = "";
-            }
-        }
 
-        private async void BtnKustuta_Clicked(object? sender, EventArgs e)
-        {
-            Telefon phone = list.SelectedItem as Telefon;
-
-            if (phone != null)
-            {
-                telefonid.Remove(phone);
-                list.SelectedItem = null; // Tühistame valiku visuaalselt
+                // Lähtestame pildi valiku oleku
+                valitudPildiTee = "";
+                lblValitudPilt.Text = "Pilti pole valitud (kasutatakse vaikimisi pilti)";
+                lblValitudPilt.TextColor = Colors.Gray;
             }
             else
             {
-                await DisplayAlertAsync("Viga", "Palun vali nimekirjast telefon", "Ok");
+                DisplayAlert("Viga", "Palun täida vähemalt mudeli ja tootja väljad!", "OK");
             }
         }
 
-        // Sündmuse töötleja (Event handler)
+        // Telefoni kustutamine
+        private async void Kustuta_Clicked(object sender, EventArgs e)
+        {
+            Telefon valitudTelefon = list.SelectedItem as Telefon;
+
+            if (valitudTelefon != null)
+            {
+                bool vastus = await DisplayAlert("Kinnitus", $"Kas oled kindel, et soovid mudeli {valitudTelefon.Nimetus} kustutada?", "Jah", "Ei");
+
+                if (vastus == true)
+                {
+                    telefons.Remove(valitudTelefon);
+                    list.SelectedItem = null;
+                }
+            }
+            else
+            {
+                await DisplayAlert("Viga", "Palun vali nimekirjast telefon, mida soovid kustutada.", "OK");
+            }
+        }
+
+        // Loendis reale vajutamine
         private async void List_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            // Konverteerime valitud elemendi (e.Item) Telefon objektiks
-            Telefon selectedPhone = e.Item as Telefon;
+            Telefon valitudTelefon = e.Item as Telefon;
 
-            // Kontrollime alati, kas konverteerimine õnnestus ega poleks null
-            if (selectedPhone != null)
+            if (valitudTelefon != null)
             {
-                // Kuvame ekraanil hüpikakna
-                await DisplayAlertAsync("Valitud mudel", $"{selectedPhone.Tootja} - {selectedPhone.Nimetus}", "OK");
+                await DisplayAlert("Telefoni info", $"Tootja: {valitudTelefon.Tootja}\nMudel: {valitudTelefon.Nimetus}\nHind: {valitudTelefon.Hind} €", "Sulge");
             }
         }
     }
