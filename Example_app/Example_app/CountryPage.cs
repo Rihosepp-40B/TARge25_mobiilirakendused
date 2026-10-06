@@ -210,7 +210,7 @@ namespace Example_app
                 int.TryParse(entryPopulation.Text, out population);
 
                 // Kui pilti ei valitud, kasutame vaikimisi faili
-                string picName = string.IsNullOrWhiteSpace(pickedPicPath) ? "pirateflag.png" : pickedPicPath;
+                string picName = string.IsNullOrWhiteSpace(pickedPicPath) ? "pirateflag.jpg" : pickedPicPath;
 
                 bool duplicateCheck = countries.Any(c => c.Name.Equals(entryName.Text, StringComparison.OrdinalIgnoreCase));
 
@@ -226,7 +226,8 @@ namespace Example_app
                 }
                 else
                 {
-                    DisplayAlert("Duplkaat", $"Riik: {entryName.Text} on juba olemas", "Sulge");
+                    DisplayAlert("Duplikaat", $"Riik '{entryName.Text}' on juba olemas", "Sulge");
+                    return;
                 }
                 
 
@@ -276,7 +277,11 @@ namespace Example_app
 
             if (pickedCountry != null)
             {
-                await DisplayAlert("Riigi info", $"Pealinn: {pickedCountry.CapitalCity}\nNimetus: {pickedCountry.Name}\nRahvaarv: {pickedCountry.Population}", "Sulge");
+                entryName.Text = pickedCountry.Name;
+                entryCapitalCity.Text = pickedCountry.CapitalCity;
+                entryPopulation.Text = pickedCountry.Population.ToString();
+
+                await DisplayAlert("Riigi info", $"Pealinn: {pickedCountry.CapitalCity}\nNimetus: {pickedCountry.Name}\nRahvaarv: {pickedCountry.Population}", "Sulge");                
             }
         }
 

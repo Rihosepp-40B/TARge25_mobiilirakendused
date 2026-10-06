@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MultiLangApp.ViewModels"
+             x:Class="MultiLangApp.Views.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="40" Spacing="25">
+        <Label Text="{Binding Greeting}" 
+               FontSize="32"
+               HorizontalOptions="Center" />
+
+        <Label Text="{Binding ChangeLanguageLabel}" 
+               FontAttributes="Bold"
+               FontSize="18"
+               HorizontalOptions="Center" />
+
+        <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+
+            <!-- English -->
+            <Button Command="{Binding SetEnglishCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="flag_en.png" />
+                </Button.ImageSource>
+                <Button.Text>
+                    <Binding Path="EnglishButton" />
+                </Button.Text>
+            </Button>
+
+            <!-- Russian -->
+            <Button Command="{Binding SetGermanCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="flag_de.png" />
+                </Button.ImageSource>
+                <Button.Text>
+                    <Binding Path="GermanButton" />
+                </Button.Text>
+            </Button>
+
+            <!-- Estonian -->
+            <Button Command="{Binding SetEstonianCommand}">
+                <Button.ImageSource>
+                    <FileImageSource File="flag_et.png" />
+                </Button.ImageSource>
+                <Button.Text>
+                    <Binding Path="EstonianButton" />
+                </Button.Text>
+            </Button>
+
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
