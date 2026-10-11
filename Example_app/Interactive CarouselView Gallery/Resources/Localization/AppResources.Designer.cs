@@ -59,5 +59,32 @@ namespace Interactive_CarouselView_Gallery.Resources.Localization {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interactive CarouselView Gallery.
+        /// </summary>
+        internal static string AppTitle {
+            get {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Language.
+        /// </summary>
+        internal static string ChangeLanguage {
+            get {
+                return ResourceManager.GetString("ChangeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to flag_en.png.
+        /// </summary>
+        internal static string ChangeLanguageIcon {
+            get {
+                return ResourceManager.GetString("ChangeLanguageIcon", resourceCulture);
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@
                 </Button.Text>
             </Button>
 
-            <!-- Russian -->
+            <!-- German -->
             <Button Command="{Binding SetGermanCommand}">
                 <Button.ImageSource>
                     <FileImageSource File="flag_de.png" />
