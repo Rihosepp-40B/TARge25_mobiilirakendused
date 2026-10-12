@@ -97,6 +97,24 @@ namespace Interactive_CarouselView_Gallery.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estonian.
+        /// </summary>
+        internal static string Estonian {
+            get {
+                return ResourceManager.GetString("Estonian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ingriedients:.
         /// </summary>
         internal static string Ingriedient {

@@ -9,6 +9,7 @@ namespace Interactive_CarouselView_Gallery.Services
         public static event Action? LanguageChanged;
 
         public static void ChangeLanguage(string languageCode)
+        // Vahetab keelt
         {
             var culture = new CultureInfo(languageCode);
             CultureInfo.DefaultThreadCurrentCulture = culture;

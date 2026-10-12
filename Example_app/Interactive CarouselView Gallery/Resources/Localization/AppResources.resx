@@ -129,6 +129,12 @@
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Estonian" xml:space="preserve">
+    <value>Estonian</value>
+  </data>
   <data name="Ingriedient" xml:space="preserve">
     <value>Ingriedients:</value>
   </data>

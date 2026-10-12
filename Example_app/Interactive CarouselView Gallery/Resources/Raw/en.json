@@ -1,0 +1,32 @@
+[
+  {
+    "Title": "Lasagna",
+    "ImageUrl": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/slow_cooker_lasagne_57243_16x9.jpg",
+    "ShortSummary": "Lasagna, pasta dish of Italian origin, made with broad often ruffled noodles and a tomato or white sauce.",
+    "Ingredients": [ "Pasta", "Ketchup", "Minced meat", "Tomatos", "Cheese" ]
+  },
+  {
+    "Title": "Pasta Carbonara",
+    "ImageUrl": "https://media.voog.com/0000/0049/9599/photos/pasta-carbonara.jpg",
+    "ShortSummary": "Carbonara is a pasta dish made with cured pork, hard cheese, eggs, salt, and black pepper. It is typical of the Lazio region of Italy.",
+    "Ingredients": [ "Pasta", "Pork", "Eggs", "Cheese" ]
+  },
+  {
+    "Title": "Pizza Margherita",
+    "ImageUrl": "https://www.stefanofaita.com/wp-content/uploads/2022/04/pizzamargherita1.jpg",
+    "ShortSummary": "Pizza Margherita is a classic Neapolitan pizza topped with tomato sauce, fresh mozzarella, fresh basil, and a drizzle of olive oil.",
+    "Ingredients": [ "Flour", "Water", "Tomatos", "Cheese" ]
+  },
+  {
+    "Title": "Tiramisu",
+    "ImageUrl": "https://cdn.shopify.com/s/files/1/0630/3685/0384/files/Tiramisu.jpg",
+    "ShortSummary": "Tiramisu is an Italian dessert made with coffee-soaked ladyfingers (savoiardi) covered with a cream of egg yolks, sugar, mascarpone, and cocoa powder.",
+    "Ingredients": [ "Ladyfingers", "Mascarpone Cheese", "Eggs", "Sugar", "Coffe", "Cocoa Powder" ]
+  },
+  {
+    "Title": "Risotto alla Milanese",
+    "ImageUrl": "https://blog.giallozafferano.com/ciacookitalianabroad/wp-content/uploads/2024/11/RISOTTO-allo-ZAFFERANO-FB.jpg",
+    "ShortSummary": "Risotto alla Milanese is a classic, golden-colored Italian risotto from Milan, Lombardy.",
+    "Ingredients": [ "Rice", "Broth", "Saffron", "Chopped onion", "Butter", "Beef bone marrow", "Wine", "Cheese" ]
+  }
+]

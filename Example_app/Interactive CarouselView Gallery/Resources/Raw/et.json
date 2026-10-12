@@ -1,0 +1,32 @@
+[
+  {
+    "Title": "Lasanje",
+    "ImageUrl": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/slow_cooker_lasagne_57243_16x9.jpg",
+    "ShortSummary": "Lasaanje on Itaalia päritolu roog, mis koosneb laiadest nuudlitest ja kastmest.",
+    "Ingredients": [ "Pasta", "Ketsup", "Hakkliha", "Tomatid", "Juust" ]
+  },
+  {
+    "Title": "Söekaevuri pasta",
+    "ImageUrl": "https://media.voog.com/0000/0049/9599/photos/pasta-carbonara.jpg",
+    "ShortSummary": "Carbonara on pastaroog, mida valmistatakse laagerdunud sealihast, kõvast juustust, munadest, soolast ja mustast piprast. See on pärit Itaalia Lazio piirkonnast.",
+    "Ingredients": [ "Pasta", "Sealiha", "Munad", "Juust" ]
+  },
+  {
+    "Title": "Pitsa Margherita",
+    "ImageUrl": "https://www.stefanofaita.com/wp-content/uploads/2022/04/pizzamargherita1.jpg",
+    "ShortSummary": "Pitsa Margherita on klassikaline Napoli pitsa, mille katteks on tomatikaste, värske mozzarella, värske basiilik ja tilk oliiviõli.",
+    "Ingredients": [ "Jahu", "Vesi", "Tomatid", "Juust" ]
+  },
+  {
+    "Title": "Tiramisu",
+    "ImageUrl": "https://cdn.shopify.com/s/files/1/0630/3685/0384/files/Tiramisu.jpg",
+    "ShortSummary": "Tiramisu on Itaalia magustoit, mis koosneb kohvis leotatud biskviitküpsistest (savoiardi), mida katab munakollastest, suhkrust, mascarpone-juustust ja kakaopulbrist valmistatud kreem.",
+    "Ingredients": [ "Biskviitküpsised", "Mascarpone-juust", "Munad", "Suhkur", "Kohv", "Kakaopulber" ]
+  },
+  {
+    "Title": "Risotto alla Milanese",
+    "ImageUrl": "https://blog.giallozafferano.com/ciacookitalianabroad/wp-content/uploads/2024/11/RISOTTO-allo-ZAFFERANO-FB.jpg",
+    "ShortSummary": "Risotto alla Milanese on klassikaline kuldse värvusega Itaalia risoto, mis pärineb Milano linnast Lombardias.",
+    "Ingredients": [ "Riis", "Puljong", "Safran", "Hakitud sibul", "Või", "Veise luuüdi", "Vein", "Juust" ]
+  }
+]

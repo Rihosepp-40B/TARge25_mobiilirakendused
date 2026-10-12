@@ -129,6 +129,12 @@
   <data name="Close" xml:space="preserve">
     <value>Sulge</value>
   </data>
+  <data name="English" xml:space="preserve">
+    <value>Inglise</value>
+  </data>
+  <data name="Estonian" xml:space="preserve">
+    <value>Eesti</value>
+  </data>
   <data name="Ingriedient" xml:space="preserve">
     <value>Koostisosad:</value>
   </data>

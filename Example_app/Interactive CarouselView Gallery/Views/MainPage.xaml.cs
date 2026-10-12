@@ -1,6 +1,9 @@
 ﻿using Interactive_CarouselView_Gallery.Models;
 using Interactive_CarouselView_Gallery.Resources.Localization;
+using Interactive_CarouselView_Gallery.Services;
+using Interactive_CarouselView_Gallery.ViewModels;
 using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace Interactive_CarouselView_Gallery.Views
 {
@@ -20,17 +23,26 @@ namespace Interactive_CarouselView_Gallery.Views
         // Piltide null positsioon (kerimisel suureneb see number
         private int position = 0;
 
+        private ToolbarItem _languageToolbarItem;
+
         public MainPage()
         {
             Title = AppResources.AppTitle;
 
-            ToolbarItems.Add(new ToolbarItem
+            var viewModel = new MainViewModel();
+            BindingContext = viewModel;
+
+            _languageToolbarItem = new ToolbarItem
             {
                 IconImageSource = AppResources.ChangeLanguageIcon,
                 Text = AppResources.ChangeLanguage,
                 Order = ToolbarItemOrder.Primary,
-                Command = new Command(async () => await ChangeLanguage())
-            });
+                Command = viewModel.ShowLanguageSelectionCommand
+            };
+
+            ToolbarItems.Add(_languageToolbarItem);
+
+            LanguageService.LanguageChanged += OnLanguageChanged;
 
             backgroundGrid = new Grid
             {
@@ -42,27 +54,22 @@ namespace Interactive_CarouselView_Gallery.Views
                 InputTransparent = true
             });
 
-
             MainGrid();
 
-            // Initsialiseerime ObservableCollectioni
-            items = new ObservableCollection<CarouselItem>
-            {
-                new CarouselItem
-                {
-                    Title = "Lasagna",
-                    ImageUrl = "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/slow_cooker_lasagne_57243_16x9.jpg", 
-                    ShortSummary = "Lasagna, pasta dish of Italian origin, made with broad often ruffled noodles and a tomato or white sauce.", 
-                    Ingredients = new List<string> 
-                    { 
-                        "Pasta",
-                        "ketchup"
-                    },
-                },
-                new CarouselItem { Title = "Metsavaikus", ImageUrl = "https://picsum.photos/id/1016/600/400" },
-                new CarouselItem { Title = "Järvepeegel", ImageUrl = "https://picsum.photos/id/1018/600/400" }
-            };
+            // Laadime andmed ja alles siis ehitame galerii üles
+            _ = InitializePageAsync();
+        }
 
+        private async Task InitializePageAsync()
+        // Käivitab lehe ülesehitused
+        {
+            // Initsialiseerime ObservableCollectioni
+            items = new ObservableCollection<CarouselItem>();
+
+            // Lae esmalt andmed JSON-ist sisse
+            await LoadCarouselItemsAsync();
+
+            // Kui andmed on käes, loo alles karussell ja ülejäänud vaated
             GalleryCarousel();
 
             var indicatorView = CarouselIndicator();
@@ -75,6 +82,32 @@ namespace Interactive_CarouselView_Gallery.Views
             backgroundGrid.Children.Add(mainGrid);
 
             Content = backgroundGrid;
+        }
+
+        private void OnLanguageChanged()
+        // Tegevused keele vahetumisel
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                // Uuenda lehe tiitlit
+                Title = AppResources.AppTitle;
+
+                // Uuenda toolbari teksti ja ikooni
+                if (_languageToolbarItem != null)
+                {
+                    _languageToolbarItem.Text = AppResources.ChangeLanguage;
+                    _languageToolbarItem.IconImageSource = AppResources.ChangeLanguageIcon;
+                }
+                // Lae uue keele andmed JSON'st
+                await LoadCarouselItemsAsync();
+            });
+        }
+
+        protected override void OnDisappearing()
+        // Tegevused, kui piltvahetub / väljutakse rakendusest
+        {
+            base.OnDisappearing();
+            LanguageService.LanguageChanged -= OnLanguageChanged;
         }
 
         private void MainGrid()
@@ -155,6 +188,7 @@ namespace Interactive_CarouselView_Gallery.Views
         }
 
         private void GalleryFrame()
+        // Galerii frami tegemine
         {
             frame = new Frame
             {
@@ -221,6 +255,7 @@ namespace Interactive_CarouselView_Gallery.Views
         }
 
         private void GalleryLabels()
+        // Galerii kirjed
         {
             label = new Label
             {
@@ -246,6 +281,7 @@ namespace Interactive_CarouselView_Gallery.Views
         }
 
         private void AutoRotateCarousel()
+        // Galerii roteerumine
         {
             carouselTimer = Application.Current.Dispatcher.CreateTimer();
             carouselTimer.Interval = TimeSpan.FromSeconds(4);
@@ -262,6 +298,7 @@ namespace Interactive_CarouselView_Gallery.Views
         }
 
         private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
+        // Aja ja positsiooni lähtsetamine kui pilti vahetati
         {
             position = e.CurrentPosition;
 
@@ -284,6 +321,49 @@ namespace Interactive_CarouselView_Gallery.Views
             carouselView.IndicatorView = indicatorView;
 
             return indicatorView;
+        }
+
+        private async Task LoadCarouselItemsAsync()
+        {
+            // Võta eelistustest praegune keel (või kasutage LanguageService/Culture infot)
+            string languageCode = Preferences.Get("AppLanguage", "et");
+
+            // Vali faili nimi keele järgi, nt items_et.json või items_en.json
+            string fileName = $"{languageCode}.json";
+
+            try
+            {
+                // Ava fail Resources/Raw kaustast
+                using var stream = await FileSystem.OpenAppPackageFileAsync(fileName);
+                using var reader = new StreamReader(stream);
+                string contents = await reader.ReadToEndAsync();
+
+                // JSON listiks
+                var loadedItems = JsonSerializer.Deserialize<List<CarouselItem>>(contents);
+
+                if (loadedItems != null)
+                {
+                    // Puhasta vana kollektsioon ja lisa uued elemendid
+                    items.Clear();
+                    foreach (var item in loadedItems)
+                    {
+                        items.Add(item);
+                    }
+                }
+            }
+            //catch (Exception ex)
+            //{
+            //    System.Diagnostics.Debug.WriteLine($"Viga JSON faili lugemisel: {ex.Message}");
+            //}
+            catch (Exception ex)
+            {
+                // Näita veateadet ekraanil, et saaksime koheselt teada, milles asi
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayAlert("JSON viga", $"Faili '{fileName}' ei leitud või seda ei saanud lahti: {ex.Message}", "OK");
+                });
+                System.Diagnostics.Debug.WriteLine($"Viga JSON faili lugemisel: {ex.Message}");
+            }
         }
     }
 }

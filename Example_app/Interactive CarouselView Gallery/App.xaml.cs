@@ -1,15 +1,17 @@
-﻿namespace Interactive_CarouselView_Gallery
+﻿using Interactive_CarouselView_Gallery.Services;
+
+namespace Interactive_CarouselView_Gallery
 {
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
-        }
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
-        }
+            MainPage = new AppShell();
+
+            var savedLang = Preferences.Get("AppLanguage", "en");
+            LanguageService.ChangeLanguage(savedLang);
+        }        
     }
 }
