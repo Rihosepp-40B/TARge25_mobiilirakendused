@@ -86,5 +86,23 @@ namespace Interactive_CarouselView_Gallery.Resources.Localization {
                 return ResourceManager.GetString("ChangeLanguageIcon", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingriedients:.
+        /// </summary>
+        internal static string Ingriedient {
+            get {
+                return ResourceManager.GetString("Ingriedient", resourceCulture);
+            }
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Interactive_CarouselView_Gallery
+﻿namespace Interactive_CarouselView_Gallery
 {
     public partial class App : Application
     {

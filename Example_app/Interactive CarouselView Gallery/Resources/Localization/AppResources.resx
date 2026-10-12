@@ -126,4 +126,10 @@
   <data name="ChangeLanguageIcon" xml:space="preserve">
     <value>flag_en.png</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Ingriedient" xml:space="preserve">
+    <value>Ingriedients:</value>
+  </data>
 </root>

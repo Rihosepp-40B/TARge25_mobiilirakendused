@@ -10,10 +10,10 @@ namespace Interactive_CarouselView_Gallery.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        //public string Greeting => AppResources.GreetingText;
-        //public string ChangeLanguageLabel => AppResources.ChangeLanguage;
-        //public string EnglishButton => AppResources.EnglishButton;
-        //public string EstonianButton => AppResources.EstonianButton;
+        public string AppTitle => AppResources.AppTitle;
+        public string ChangeLanguageText => AppResources.ChangeLanguage;
+        public string ChangeLanguageIcon => AppResources.ChangeLanguageIcon;
+        public string Close => AppResources.Close;
 
         public ICommand SetEnglishCommand { get; }
         public ICommand SetGermanCommand { get; }
@@ -34,10 +34,10 @@ namespace Interactive_CarouselView_Gallery.ViewModels
 
         private void OnLanguageChanged()
         {
-            //OnPropertyChanged(nameof(Greeting));
-            //OnPropertyChanged(nameof(ChangeLanguageLabel));
-            //OnPropertyChanged(nameof(EnglishButton));
-            //OnPropertyChanged(nameof(EstonianButton));
+            OnPropertyChanged(nameof(AppTitle));
+            OnPropertyChanged(nameof(ChangeLanguageText));
+            OnPropertyChanged(nameof(ChangeLanguageIcon));
+            OnPropertyChanged(nameof(Close));
         }
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)

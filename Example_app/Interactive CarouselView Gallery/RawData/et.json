@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Lasanje",
+    "imageUrl": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/slow_cooker_lasagne_57243_16x9.jpg",
+    "shortSummary": "Lasaanje on Itaalia päritolu roog, mis koosneb laiadest nuudlitest ja kastmest.",
+    "ingredients": [ "Pasta", "Ketsup", "Hakkliha", "Tomatid", "Juust" ]
+  }
+  {
+    "title": "Pasta carbonaara",
+    "imageUrl": "https://media.voog.com/0000/0049/9599/photos/pasta-carbonara.jpg",
+    "shortSummary": "Kokkuvõte",
+    "ingredients": [ "Pasta", "Ketsup", "Hakkliha", "Tomatid", "Juust" ]
+  }
+]

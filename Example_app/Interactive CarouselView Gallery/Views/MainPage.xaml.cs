@@ -29,13 +29,18 @@ namespace Interactive_CarouselView_Gallery.Views
                 IconImageSource = AppResources.ChangeLanguageIcon,
                 Text = AppResources.ChangeLanguage,
                 Order = ToolbarItemOrder.Primary,
-                //Command = new Command(async () => await SelectLanguage())
+                Command = new Command(async () => await ChangeLanguage())
             });
 
             backgroundGrid = new Grid
             {
                 BackgroundColor = Color.FromHex("#131406")
             };
+
+            backgroundGrid.Children.Add(new FireView
+            {
+                InputTransparent = true
+            });
 
 
             MainGrid();
@@ -45,23 +50,14 @@ namespace Interactive_CarouselView_Gallery.Views
             {
                 new CarouselItem
                 {
-                    Title = "Lasanje",
+                    Title = "Lasagna",
                     ImageUrl = "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/slow_cooker_lasagne_57243_16x9.jpg", 
-                    ShortSummary = "Short", 
-                    Ingredients = new List<Ingredient> 
+                    ShortSummary = "Lasagna, pasta dish of Italian origin, made with broad often ruffled noodles and a tomato or white sauce.", 
+                    Ingredients = new List<string> 
                     { 
-                        new Ingredient { Name = "Jahu", Amount = 200, Unit = "grammi" }
+                        "Pasta",
+                        "ketchup"
                     },
-                    PrepTimeMinutes = 30,
-                    CookTimeMinutes = 30,
-                    DirectionSteps = new List<Step>
-                    {
-                        new Step {Name = "Ettevalmistused", Direction = "Valmista ette, bla bla bla"},
-                        new Step {Name = "Kastme tegemine", Direction = "Pane potti ja bla bla bla"},
-                        new Step {Name = "Kokku panemine", Direction = "Pane küpsetus potti ja bla bla bla"},
-                        new Step {Name = "Küpsetamine", Direction = "Ahi on 220 kraadi C soe, pane küpsetus pott ahju ja bla bla bla"},
-
-                    }
                 },
                 new CarouselItem { Title = "Metsavaikus", ImageUrl = "https://picsum.photos/id/1016/600/400" },
                 new CarouselItem { Title = "Järvepeegel", ImageUrl = "https://picsum.photos/id/1018/600/400" }
@@ -109,6 +105,30 @@ namespace Interactive_CarouselView_Gallery.Views
                 ItemTemplate = new DataTemplate(() =>
                 {
                     GalleryFrame();
+
+                    var tapGesture = new TapGestureRecognizer();
+
+                    tapGesture.Tapped += async (sender, e) =>
+                    {
+                        // Leiame selle elemendi, mille Frame-ile vajutati
+                        if (sender is Frame tappedFrame &&
+                            tappedFrame.BindingContext is CarouselItem item)
+                        {
+                            string featuresText = string.Join
+                            (
+                                "\n",
+                                item.Ingredients.Select(feature => "• " + feature)
+                            );
+                            await DisplayAlert(
+                                item.Title,
+                                AppResources.Ingriedient + "\n" + featuresText,
+                                AppResources.Close
+                            );
+                        }
+                    };
+
+                    // Seome vajutamise Frame-iga
+                    frame.GestureRecognizers.Add(tapGesture);
 
                     GalleryGrid();
                                         
